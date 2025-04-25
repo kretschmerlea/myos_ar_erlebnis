@@ -137,10 +137,12 @@
             logoName.style.display = 'block';
 
             const texts = classTexts[currentClassName];
-            if (texts) {
-              document.getElementById("panel-details").innerText = texts.details;
-              document.getElementById("panel-pflege").innerText = texts.pflege;
-              document.getElementById("panel-nachhaltigkeit").innerText = texts.nachhaltigkeit;
+           if (texts) {
+             document.getElementById("panel-details").innerText = texts.details;
+             document.getElementById("panel-pflege").innerText = texts.pflege;
+             document.getElementById("panel-nachhaltigkeit").innerText = texts.nachhaltigkeit;
+           }
+
             } else {
               document.getElementById("panel-details").innerText = "Keine Produktdetails verfügbar.";
               document.getElementById("panel-pflege").innerText = "Keine Pflegehinweise verfügbar.";
