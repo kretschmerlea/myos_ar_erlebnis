@@ -1,0 +1,139 @@
+/* Standard-Schrift: Bubblegum Pop Vanilla */
+body,
+button,
+.circle,
+#logo-name,
+#next-scan-button,
+#back-button {
+  font-family: "bubblegum-pop-vanilla", sans-serif;
+}
+
+/* Panels: Shantell Sans */
+.overlay-panel {
+  font-family: "shantell-sans", sans-serif;
+}
+
+/* Deine bestehenden Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  background: black;
+}
+
+#webcam-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+video {
+  height: 100vh;
+  width: auto;
+  object-fit: contain;
+  z-index: 0;
+}
+
+.circle-menu {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 260px;
+  display: none;
+  z-index: 2;
+}
+
+.circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  background-color: rgba(115, 157, 198, 0.8);
+  color: #60473E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+}
+
+.circle:nth-child(1) {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.circle:nth-child(2) {
+  bottom: 0;
+  left: 0;
+}
+
+.circle:nth-child(3) {
+  bottom: 0;
+  right: 0;
+}
+
+.overlay-panel {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #60473E;
+  font-size: 1.5rem;
+  background-color: #EFEAE6;
+  padding: 20px;
+  border-radius: 12px;
+  z-index: 3;
+  display: none;
+}
+
+#back-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #60473E;
+  color: #EFEAE6;
+  z-index: 4;
+  display: none;
+}
+
+#logo-name {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 2rem;
+  z-index: 5;
+  display: none;
+}
+
+#next-scan-button {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #A5B28D;
+  color: #60473E;
+  z-index: 4;
+  display: block;
+}
