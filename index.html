@@ -2,135 +2,15 @@
 <html>
 <head>
   <title>Logo Detector</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Adobe Fonts -->
   <link rel="stylesheet" href="https://use.typekit.net/lpp8rxa.css">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-      background: black;
-    }
+  <!-- Eigene CSS-Datei -->
+  <link rel="stylesheet" href="style.css">
 
-    #webcam-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    video {
-      height: 100vh;
-      width: auto;
-      object-fit: contain;
-      z-index: 0;
-    }
-
-    .circle-menu {
-      position: absolute;
-      top: 42%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px;
-      height: 260px;
-      display: none;
-      z-index: 2;
-    }
-
-    .circle {
-      width: 120px;
-      height: 120px;
-      border-radius: 60px;
-      background-color: rgba(115, 157, 198, 0.8);
-      color: #60473E;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      text-align: center;
-      cursor: pointer;
-      position: absolute;
-    }
-
-    .circle:nth-child(1) {
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .circle:nth-child(2) {
-      bottom: 0;
-      left: 0;
-    }
-
-    .circle:nth-child(3) {
-      bottom: 0;
-      right: 0;
-    }
-
-    .overlay-panel {
-      position: absolute;
-      top: 42%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #60473E;
-      font-size: 1.5rem;
-      background-color: #EFEAE6;
-      padding: 20px;
-      border-radius: 12px;
-      z-index: 3;
-      display: none;
-    }
-
-    #back-button {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background-color: #60473E;
-      color: #EFEAE6;
-      z-index: 4;
-      display: none;
-    }
-
-    #logo-name {
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 2rem;
-      z-index: 5;
-      display: none;
-    }
-
-    #next-scan-button {
-      position: fixed;
-      bottom: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background-color: #A5B28D;
-      color: #60473E;
-      z-index: 4;
-      display: block;
-    }
-  </style>
-
+  <!-- TensorFlow & Teachable Machine -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.13.0/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.4/dist/teachablemachine-image.min.js"></script>
 </head>
@@ -246,10 +126,9 @@
       if (highest.probability > 0.95) {
         if (highest.className !== lastDetectedClass) {
           lastDetectedClass = highest.className;
-          classDetectionStartTime = Date.now(); // Start der Zeitmessung
+          classDetectionStartTime = Date.now();
         }
 
-        // Wenn eine Klasse für mindestens 0,5 Sekunden erkannt wurde
         if (Date.now() - classDetectionStartTime >= 500) {
           if (!isClassDetected) {
             isClassDetected = true;
@@ -274,7 +153,6 @@
           }
         }
       } else {
-        // Wenn die Wahrscheinlichkeit unter 95% fällt, setze den Erkennungsstatus zurück
         isClassDetected = false;
         logoName.innerText = "Kein Logo erkannt";
         logoName.style.display = 'block';
@@ -285,7 +163,7 @@
 
     window.addEventListener("load", () => {
       init().then(() => {
-        scanning = true; // Direkt beim Start scannen
+        scanning = true;
       });
     });
 
