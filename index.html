@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logo Detector</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: black;
+    }
+
+    #webcam-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    video {
+      height: 100vh;
+      width: auto;
+      object-fit: contain;
+      z-index: 0;
+    }
+
+    .circle-menu {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 260px;
+      display: none;
+      z-index: 2;
+    }
+
+    .circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 60px;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      position: absolute;
+    }
+
+    .circle:nth-child(1) {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .circle:nth-child(2) {
+      bottom: 0;
+      left: 0;
+    }
+
+    .circle:nth-child(3) {
+      bottom: 0;
+      right: 0;
+    }
+
+    .overlay-panel {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 1.5rem;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 12px;
+      z-index: 3;
+      display: none;
+    }
+
+    #back-button {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #f44336;
+      color: white;
+      z-index: 4;
+      display: none;
+    }
+
+    #logo-name {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      z-index: 5;
+      display: none;
+    }
+
+    #next-scan-button {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      z-index: 4;
+      display: block;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.13.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.4/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+  <div id="webcam-container">
+    <video id="video" autoplay playsinline></video>
+
+    <div class="circle-menu" id="circle-menu">
+      <div class="circle" onclick="showPanel('details')">Produktdetails</div>
+      <div class="circle" onclick="showPanel('pflege')">Material & Pflege</div>
+      <div class="circle" onclick="showPanel('nachhaltigkeit')">Nachhaltigkeit</div>
+    </div>
+
+    <div class="overlay-panel" id="panel-details"></div>
+    <div class="overlay-panel" id="panel-pflege"></div>
+    <div class="overlay-panel" id="panel-nachhaltigkeit"></div>
+
+    <button id="back-button" onclick="showCircles()">Zurück</button>
+    <div id="logo-name">Kein Logo erkannt</div>
+    <button id="next-scan-button" onclick="nextScan()">Nächstes Logo scannen</button>
+  </div>
+
+  <script type="text/javascript">
+    let model, maxPredictions;
+    const video = document.getElementById("video");
+    const logoName = document.getElementById("logo-name");
+    const nextScanButton = document.getElementById("next-scan-button");
+    const backButton = document.getElementById("back-button");
+    let currentClassName = '';
+    let scanning = false;
+    let lastDetectedClass = '';
+    let classDetectionStartTime = 0;
+    let isClassDetected = false;
+
+    const classTexts = {
+      "Class 1": {
+        details: "Das ist Class 1 – hier stehen spezifische Produktdetails.",
+        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
+        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+      },
+      "Class 2": {
+        details: "Class 2 bringt andere Eigenschaften mit sich.",
+        pflege: "Bitte nicht in der Waschmaschine reinigen.",
+        nachhaltig: "Diese Klasse erfüllt keine Nachhaltigkeitskriterien."
+      }
+    };
+
+    async function init() {
+      const URL = "./model/";
+      const modelURL = URL + "model.json";
+      const metadataURL = URL + "metadata.json";
+
+      model = await tmImage.load(modelURL, metadataURL);
+      maxPredictions = model.getTotalClasses();
+
+      const constraints = {
+        video: {
+          facingMode: { ideal: "environment" },
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        },
+        audio: false
+      };
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function showPanel(panelName) {
+      document.getElementById("circle-menu").style.display = "none";
+      document.getElementById("panel-details").style.display = "none";
+      document.getElementById("panel-pflege").style.display = "none";
+      document.getElementById("panel-nachhaltigkeit").style.display = "none";
+      document.getElementById("panel-" + panelName).style.display = "block";
+      document.getElementById("back-button").style.display = "block";
+    }
+
+    function showCircles() {
+      document.getElementById("panel-details").style.display = "none";
+      document.getElementById("panel-pflege").style.display = "none";
+      document.getElementById("panel-nachhaltigkeit").style.display = "none";
+      document.getElementById("circle-menu").style.display = "flex";
+      document.getElementById("back-button").style.display = "none";
+    }
+
+    function nextScan() {
+      logoName.style.display = 'none';
+      nextScanButton.style.display = 'none';
+      backButton.style.display = 'none';
+
+      document.getElementById("panel-details").style.display = "none";
+      document.getElementById("panel-pflege").style.display = "none";
+      document.getElementById("panel-nachhaltigkeit").style.display = "none";
+
+      scanning = true;
+      currentClassName = '';
+      logoName.innerText = "Kein Logo erkannt";
+      document.getElementById("circle-menu").style.display = "none";
+    }
+
+    async function predict() {
+      if (!scanning) return;
+
+      const prediction = await model.predict(video);
+      const highest = prediction.reduce((prev, current) =>
+        (prev.probability > current.probability) ? prev : current
+      );
+
+      if (highest.probability > 0.95) {
+        if (highest.className !== lastDetectedClass) {
+          lastDetectedClass = highest.className;
+          classDetectionStartTime = Date.now(); // Start der Zeitmessung
+        }
+
+        // Wenn eine Klasse für mindestens 0,5 Sekunden erkannt wurde
+        if (Date.now() - classDetectionStartTime >= 500) {
+          if (!isClassDetected) {
+            isClassDetected = true;
+            currentClassName = highest.className;
+            logoName.innerText = currentClassName;
+            logoName.style.display = 'block';
+
+            const texts = classTexts[currentClassName];
+            if (texts) {
+              document.getElementById("panel-details").innerText = texts.details;
+              document.getElementById("panel-pflege").innerText = texts.pflege;
+              document.getElementById("panel-nachhaltigkeit").innerText = texts.nachhaltigkeit;
+            } else {
+              document.getElementById("panel-details").innerText = "Keine Produktdetails verfügbar.";
+              document.getElementById("panel-pflege").innerText = "Keine Pflegehinweise verfügbar.";
+              document.getElementById("panel-nachhaltigkeit").innerText = "Keine Nachhaltigkeitsinfos verfügbar.";
+            }
+
+            document.getElementById("circle-menu").style.display = "flex";
+            nextScanButton.style.display = 'block';
+            scanning = false;
+          }
+        }
+      } else {
+        // Wenn die Wahrscheinlichkeit unter 95% fällt, setze den Erkennungsstatus zurück
+        isClassDetected = false;
+        logoName.innerText = "Kein Logo erkannt";
+        logoName.style.display = 'block';
+        document.getElementById("circle-menu").style.display = "none";
+        scanning = true;
+      }
+    }
+
+    window.addEventListener("load", () => {
+      init().then(() => {
+        scanning = true; // Direkt beim Start scannen
+      });
+    });
+
+    video.addEventListener("loadeddata", function () {
+      video.play();
+      window.requestAnimationFrame(loop);
+    });
+
+    async function loop() {
+      await predict();
+      window.requestAnimationFrame(loop);
+    }
+  </script>
+</body>
+</html>
