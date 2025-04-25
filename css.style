@@ -1,9 +1,14 @@
-/* Alles bekommt Bubblegum Pop Vanilla */
-* {
+/* Standard-Schrift: Bubblegum Pop Vanilla */
+body,
+button,
+.circle,
+#logo-name,
+#next-scan-button,
+#back-button {
   font-family: "bubblegum-pop-vanilla", sans-serif;
 }
 
-/* Nur die Panels bekommen Shantell Sans */
+/* Panels: Shantell Sans */
 .overlay-panel {
   font-family: "shantell-sans", sans-serif;
 }
