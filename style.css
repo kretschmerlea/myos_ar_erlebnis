@@ -8,10 +8,6 @@ button,
   font-family: "bubblegum-pop-vanilla", sans-serif;
 }
 
-/* Spezifisch für die Panels die Schriftart Shantell Sans */
-.overlay-panel {
-  font-family: "shantell-sans", sans-serif !important;
-}
 
 /* Deine bestehenden Styles */
 html, body {
