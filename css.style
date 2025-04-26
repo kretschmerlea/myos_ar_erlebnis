@@ -8,6 +8,11 @@ button,
   font-family: "bubblegum-pop-vanilla", sans-serif;
 }
 
+/* Panels: Shantell Sans */
+.overlay-panel {
+  font-family: "shantell-sans", sans-serif;
+}
+
 html, body {
   margin: 0;
   padding: 0;
