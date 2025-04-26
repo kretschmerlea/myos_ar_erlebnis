@@ -115,53 +115,52 @@
       document.getElementById("circle-menu").style.display = "none";
     }
 
-    async function predict() {
-      if (!scanning) return;
+async function predict() {
+  if (!scanning) return;
 
-      const prediction = await model.predict(video);
-      const highest = prediction.reduce((prev, current) =>
-        (prev.probability > current.probability) ? prev : current
-      );
+  const prediction = await model.predict(video);
+  const highest = prediction.reduce((prev, current) =>
+    (prev.probability > current.probability) ? prev : current
+  );
 
-      if (highest.probability > 0.95) {
-        if (highest.className !== lastDetectedClass) {
-          lastDetectedClass = highest.className;
-          classDetectionStartTime = Date.now();
-        }
+  if (highest.probability > 0.95) {
+    if (highest.className !== lastDetectedClass) {
+      lastDetectedClass = highest.className;
+      classDetectionStartTime = Date.now();
+    }
 
-        if (Date.now() - classDetectionStartTime >= 500) {
-          if (!isClassDetected) {
-            isClassDetected = true;
-            currentClassName = highest.className;
-            logoName.innerText = currentClassName;
-            logoName.style.display = 'block';
-
-            const texts = classTexts[currentClassName];
-           if (texts) {
-             document.getElementById("panel-details").innerText = texts.details;
-             document.getElementById("panel-pflege").innerText = texts.pflege;
-             document.getElementById("panel-nachhaltigkeit").innerText = texts.nachhaltigkeit;
-           }
-
-            } else {
-              document.getElementById("panel-details").innerText = "Keine Produktdetails verfügbar.";
-              document.getElementById("panel-pflege").innerText = "Keine Pflegehinweise verfügbar.";
-              document.getElementById("panel-nachhaltigkeit").innerText = "Keine Nachhaltigkeitsinfos verfügbar.";
-            }
-
-            document.getElementById("circle-menu").style.display = "flex";
-            nextScanButton.style.display = 'block';
-            scanning = false;
-          }
-        }
-      } else {
-        isClassDetected = false;
-        logoName.innerText = "Kein Logo erkannt";
+    if (Date.now() - classDetectionStartTime >= 500) {
+      if (!isClassDetected) {
+        isClassDetected = true;
+        currentClassName = highest.className;
+        logoName.innerText = currentClassName;
         logoName.style.display = 'block';
-        document.getElementById("circle-menu").style.display = "none";
-        scanning = true;
+
+        const texts = classTexts[currentClassName];
+        if (texts) {
+          document.getElementById("panel-details").innerText = texts.details;
+          document.getElementById("panel-pflege").innerText = texts.pflege;
+          document.getElementById("panel-nachhaltigkeit").innerText = texts.nachhaltigkeit;
+        } else {
+          document.getElementById("panel-details").innerText = "Keine Produktdetails verfügbar.";
+          document.getElementById("panel-pflege").innerText = "Keine Pflegehinweise verfügbar.";
+          document.getElementById("panel-nachhaltigkeit").innerText = "Keine Nachhaltigkeitsinfos verfügbar.";
+        }
+
+        document.getElementById("circle-menu").style.display = "flex";
+        nextScanButton.style.display = 'block';
+        scanning = false;
       }
     }
+  } else {
+    isClassDetected = false;
+    logoName.innerText = "Kein Logo erkannt";
+    logoName.style.display = 'block';
+    document.getElementById("circle-menu").style.display = "none";
+    scanning = true;
+  }
+}
+
 
     window.addEventListener("load", () => {
       init().then(() => {
