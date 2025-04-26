@@ -8,12 +8,6 @@ button,
   font-family: "bubblegum-pop-vanilla", sans-serif;
 }
 
-/* Panels: Shantell Sans */
-.overlay-panel {
-  font-family: "shantell-sans", sans-serif;
-}
-
-/* Deine bestehenden Styles */
 html, body {
   margin: 0;
   padding: 0;
@@ -53,8 +47,8 @@ video {
 }
 
 .circle {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 60px;
   background-color: rgba(115, 157, 198, 0.8);
   color: #60473E;
