@@ -49,8 +49,8 @@ video {
 }
 
 .circle {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   border-radius: 60px;
   background-color: rgba(115, 157, 198, 0.8);
   color: #60473E;
@@ -85,7 +85,7 @@ video {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #60473E;
-  font-size: 1.5rem;
+  font-size: 1rem;
   background-color: #EFEAE6;
   padding: 20px;
   border-radius: 12px;
