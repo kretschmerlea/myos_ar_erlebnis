@@ -9,7 +9,8 @@
 
 /* Nur Panels bekommen Shantell Sans */
 .overlay-panel {
-  font-family: "shantell-sans", sans-serif;
+  font-family: "shantell-sans-normal", sans-serif !important;
+  font-style: normal;
 }
 
 /* =========================== */
