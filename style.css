@@ -5,13 +5,11 @@
 /* Alles bekommt Bubblegum Pop Vanilla */
 * {
   font-family: "bubblegum-pop-vanilla", sans-serif;
-  box-sizing: border-box;
 }
 
 /* Nur Panels bekommen Shantell Sans */
 .overlay-panel {
-  font-family: "shantell-sans-normal", sans-serif !important;
-font-style: normal;
+  font-family: "shantell-sans", sans-serif;
 }
 
 /* =========================== */
@@ -69,23 +67,21 @@ video {
 
 .circle-menu {
   position: absolute;
-  top: 45%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
   height: 260px;
   display: none;
   z-index: 2;
-  flex-wrap: wrap;
-  gap: 15px;
 }
 
 /* Kreise im Menü */
 .circle {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: rgba(115, 157, 198, 0.85);
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  background-color: rgba(115, 157, 198, 0.8);
   color: #60473E;
   display: flex;
   justify-content: center;
@@ -94,7 +90,6 @@ video {
   text-align: center;
   cursor: pointer;
   position: absolute;
-  font-size: 1rem;
 }
 
 /* Positionierung der Kreise */
@@ -103,10 +98,12 @@ video {
   left: 50%;
   transform: translateX(-50%);
 }
+
 .circle:nth-child(2) {
   bottom: 0;
   left: 0;
 }
+
 .circle:nth-child(3) {
   bottom: 0;
   right: 0;
@@ -122,32 +119,23 @@ video {
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 85%;
+  width: 80%;
   max-width: 400px;
   background: rgba(255, 255, 255, 0.95);
-  padding: 25px;
-  border-radius: 20px;
-  font-size: 1.4rem;
+  padding: 20px;
+  border-radius: 15px;
+  font-size: 1.5rem;
   color: #333;
   text-align: center;
   z-index: 3;
+
+  /* Animation */
   animation: fadeIn 0.5s ease forwards;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* =========================== */
 /* BUTTONS */
 /* =========================== */
-
-/* Gemeinsame Button Styles */
-button {
-  padding: 14px 28px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  animation: fadeIn 0.5s ease forwards;
-}
 
 /* Zurück Button */
 #back-button {
@@ -155,22 +143,36 @@ button {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
   background-color: #60473E;
   color: #EFEAE6;
   z-index: 4;
   display: none;
+
+  /* Animation */
+  animation: fadeIn 0.5s ease forwards;
 }
 
 /* Nächster Scan Button */
 #next-scan-button {
   position: fixed;
-  bottom: 80px;
+  bottom: 70px;
   left: 50%;
   transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
   background-color: #A5B28D;
   color: #60473E;
   z-index: 4;
   display: block;
+
+  /* Animation */
+  animation: fadeIn 0.5s ease forwards;
 }
 
 /* =========================== */
@@ -189,27 +191,3 @@ button {
 }
 
 /* =========================== */
-/* MOBILE OPTIMIERUNG */
-/* =========================== */
-
-@media (max-width: 600px) {
-  .overlay-panel {
-    font-size: 1.2rem;
-    padding: 20px;
-  }
-
-  .circle {
-    width: 90px;
-    height: 90px;
-    font-size: 0.9rem;
-  }
-
-  button {
-    padding: 12px 24px;
-    font-size: 1rem;
-  }
-
-  #logo-name {
-    font-size: 1.6rem;
-  }
-}
