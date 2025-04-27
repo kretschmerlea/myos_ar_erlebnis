@@ -51,7 +51,7 @@ video {
 .circle {
   width: 130px;
   height: 130px;
-  border-radius: 60px;
+  border-radius: 70px;
   background-color: rgba(115, 157, 198, 0.8);
   color: #60473E;
   display: flex;
