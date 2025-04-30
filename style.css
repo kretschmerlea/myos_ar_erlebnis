@@ -114,9 +114,10 @@ video {
   left: 50%;
   transform: translateX(-50%);
   color: white;
-  font-size: 2rem;
+  font-size: 1.7rem;
   z-index: 5;
   display: none;
+  text-align: center;
 }
 
 #next-scan-button {
