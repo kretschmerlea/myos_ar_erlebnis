@@ -8,7 +8,7 @@
   <!-- Adobe Fonts -->
   <link rel="stylesheet" href="https://use.typekit.net/lpp8rxa.css">
 
-  <!-- Eigene CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 
   <!-- TensorFlow & Teachable Machine -->
@@ -49,58 +49,185 @@
 
     const classTexts = {
       "Mori T-Shirt": {
-        details: "Das ist Class 1 – hier stehen spezifische Produktdetails.",
-        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
-        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+        details: `
+          <ul>
+            <li>Oversized Schnitt</li>
+            <li>Rundhalsausschnitt</li>
+            <li>Einfarbig</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>30 °C Maschinenwäsche</li>
+            <li>Kein Bleichmittel</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>100 % Bio-Baumwolle</li>
+            <li>Fair hergestellt</li>
+          </ul>
+        `
       },
       "Baccara Jumpsuit": {
-        details: "Class 2 bringt andere Eigenschaften mit sich.",
-        pflege: "Bitte nicht in der Waschmaschine reinigen.",
-        nachhaltig: "Diese Klasse erfüllt keine Nachhaltigkeitskriterien."
+        details: `
+          <ul>
+            <li>Taillierter Schnitt</li>
+            <li>V-Ausschnitt</li>
+            <li>Bindegürtel</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>Handwäsche empfohlen</li>
+            <li>Kein Trockner</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>Kein nachhaltiger Anspruch</li>
+          </ul>
+        `
       },
-       "Kein Logo": {
-        details: "Das ist Class 1 – hier stehen spezifische Produktdetails.",
-        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
-        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+      "Kein Logo": {
+        details: `
+          <ul>
+            <li>Kein Produkt erkannt</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>Nicht anwendbar</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>Nicht anwendbar</li>
+          </ul>
+        `
       },
-       "Salvia Leinenhemd": {
-         details: `
-         <ul>
-         <li>Brusttaschen & Knopfleiste</li>
-         <li>Ausschnitt: Hemdkragen</li>
-         <li>Optik: Einfarbig</li>
-         <li>Tragegefühl: Atmungsaktiv, kühlend, unelastisch</li>
-         </ul>
-         `,
-        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
-        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+      "Salvia Leinenhemd": {
+        details: `
+          <ul>
+            <li>Brusttaschen & Knopfleiste</li>
+            <li>Ausschnitt: Hemdkragen</li>
+            <li>Optik: Einfarbig</li>
+            <li>Tragegefühl: Atmungsaktiv, kühlend, unelastisch</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>Schonwäsche bei 30 °C</li>
+            <li>Leinenprogramm</li>
+            <li>Nicht im Trockner trocknen</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>100 % Leinen aus Europa</li>
+            <li>Plastikfrei verpackt</li>
+          </ul>
+        `
       },
-       "Limacella Workout-Top": {
-        details: "Das ist Class 1 – hier stehen spezifische Produktdetails.",
-        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
-        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+      "Limacella Workout-Top": {
+        details: `
+          <ul>
+            <li>Racerback-Design</li>
+            <li>Schnelltrocknendes Material</li>
+            <li>Medium Support</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>Maschinenwäsche kalt</li>
+            <li>Kein Weichspüler</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>Recyceltes Polyester</li>
+          </ul>
+        `
       },
-       "Calo Tank-Top": {
-        details: "Das ist Class 1 – hier stehen spezifische Produktdetails.",
-        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
-        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+      "Calo Tank-Top": {
+        details: `
+          <ul>
+            <li>Lockerer Schnitt</li>
+            <li>U-Ausschnitt</li>
+            <li>Leicht transparent</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>30 °C Maschinenwäsche</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>Nachhaltige Viskose</li>
+          </ul>
+        `
       },
-       "Delphie Baggy Jeans": {
-        details: "Das ist Class 1 – hier stehen spezifische Produktdetails.",
-        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
-        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+      "Delphie Baggy Jeans": {
+        details: `
+          <ul>
+            <li>Weites Bein</li>
+            <li>High-Waist</li>
+            <li>Festes Denim</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>Auf links waschen</li>
+            <li>30 °C Pflegeleicht</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>Recycelte Baumwolle</li>
+          </ul>
+        `
       },
-       "Kewa Longsleeve-Top": {
-        details: "Das ist Class 1 – hier stehen spezifische Produktdetails.",
-        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
-        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+      "Kewa Longsleeve-Top": {
+        details: `
+          <ul>
+            <li>Gerippter Stoff</li>
+            <li>Eng anliegend</li>
+            <li>Lange Ärmel</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>Schonwaschgang</li>
+            <li>Niedrige Schleuderzahl</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>Aus TENCEL™ Modal</li>
+          </ul>
+        `
       },
-        "Peri Bikini-Set": {
-        details: "Das ist Class 1 – hier stehen spezifische Produktdetails.",
-        pflege: "Class 1 sollte kühl und trocken gelagert werden.",
-        nachhaltig: "Class 1 ist zu 80% aus recycelten Materialien gefertigt."
+      "Peri Bikini-Set": {
+        details: `
+          <ul>
+            <li>Triangel-Oberteil</li>
+            <li>Hüfthöschen</li>
+            <li>Gefüttert</li>
+          </ul>
+        `,
+        pflege: `
+          <ul>
+            <li>Nur Handwäsche</li>
+            <li>Kein Trockner</li>
+          </ul>
+        `,
+        nachhaltig: `
+          <ul>
+            <li>Aus recyceltem Nylon</li>
+          </ul>
+        `
       }
-
     };
 
     async function init() {
@@ -185,13 +312,13 @@
 
             const texts = classTexts[currentClassName];
             if (texts) {
-              document.getElementById("panel-details").innerText = texts.details;
-              document.getElementById("panel-pflege").innerText = texts.pflege;
-              document.getElementById("panel-nachhaltigkeit").innerText = texts.nachhaltigkeit;
+              document.getElementById("panel-details").innerHTML = texts.details;
+              document.getElementById("panel-pflege").innerHTML = texts.pflege;
+              document.getElementById("panel-nachhaltigkeit").innerHTML = texts.nachhaltigkeit;
             } else {
-              document.getElementById("panel-details").innerText = "Keine Produktdetails verfügbar.";
-              document.getElementById("panel-pflege").innerText = "Keine Pflegehinweise verfügbar.";
-              document.getElementById("panel-nachhaltigkeit").innerText = "Keine Nachhaltigkeitsinfos verfügbar.";
+              document.getElementById("panel-details").innerHTML = "<ul><li>Keine Produktdetails verfügbar.</li></ul>";
+              document.getElementById("panel-pflege").innerHTML = "<ul><li>Keine Pflegehinweise verfügbar.</li></ul>";
+              document.getElementById("panel-nachhaltigkeit").innerHTML = "<ul><li>Keine Nachhaltigkeitsinfos verfügbar.</li></ul>";
             }
 
             document.getElementById("circle-menu").style.display = "flex";
