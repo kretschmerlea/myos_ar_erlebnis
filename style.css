@@ -4,8 +4,7 @@
 }
 
 /* Nur die Panels bekommen Shantell Sans */
-.overlay-panel,
-.overlay-panel * {
+.overlay-panel {
   font-family: "shantell-sans-normal", sans-serif !important;
   font-style: normal;
   color: #60473E;
@@ -14,9 +13,26 @@
   padding: 20px;
   border-radius: 12px;
   z-index: 3;
-  display: none;
+  display: none; /* Standardmäßig unsichtbar */
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
+/* Die Listen der Overlay-Panels für runde Bulletpoints */
+.overlay-panel ul {
+  list-style-type: disc; /* Runde Bulletpoints */
+  padding-left: 1.2em; /* Einzug für Bulletpoints */
+  margin: 0.5em 0;
+}
+
+.overlay-panel li {
+  margin-bottom: 0.4em; /* Abstand zwischen den Listenelementen */
+  line-height: 1.5;
+}
+
+/* Alles andere bleibt unverändert */
 html, body {
   margin: 0;
   padding: 0;
@@ -84,20 +100,6 @@ video {
 .circle:nth-child(3) {
   bottom: 0;
   right: 0;
-}
-
-.overlay-panel {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #60473E;
-  font-size: 1rem;
-  background-color: #EFEAE6;
-  padding: 20px;
-  border-radius: 12px;
-  z-index: 3;
-  display: none;
 }
 
 #back-button {
