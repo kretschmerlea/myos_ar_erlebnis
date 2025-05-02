@@ -1,18 +1,13 @@
-/* Alles bekommt Bubblegum Pop Vanilla */
+/* Global: Standardfont für alles */
 * {
   font-family: "bubblegum-pop-vanilla", sans-serif;
 }
 
-/* Nur die Panels (inkl. Kinder) bekommen Shantell Sans */
-.overlay-panel,
-.overlay-panel * {
+/* Overlay Panels: Shantell Sans */
+.overlay-panel {
   font-family: "shantell-sans-normal", sans-serif !important;
   font-style: normal;
   color: #60473E;
-}
-
-/* Overlay-Panel selbst */
-.overlay-panel {
   font-size: 1rem;
   background-color: #EFEAE6;
   padding: 20px;
@@ -28,19 +23,27 @@
   box-sizing: border-box;
 }
 
-/* Listen im Overlay-Panel */
+/* Erste Ebene Bulletpoints */
 .overlay-panel ul {
-  list-style-type: disc; /* Runde Bulletpoints */
-  padding-left: 1.2em;
+  list-style-type: disc;
+  padding-left: 1.5em;
   margin: 0.5em 0;
 }
 
+/* Zweite Ebene Bulletpoints */
+.overlay-panel ul ul {
+  list-style-type: circle;
+  padding-left: 1.5em;
+  margin-top: 0.3em;
+}
+
+/* Einzelne Listenelemente */
 .overlay-panel li {
   margin-bottom: 0.4em;
   line-height: 1.5;
 }
 
-/* Standard-Layout */
+/* Grundlayout */
 html, body {
   margin: 0;
   padding: 0;
@@ -49,7 +52,6 @@ html, body {
   background: black;
 }
 
-/* Webcam-Container */
 #webcam-container {
   position: fixed;
   top: 0;
@@ -69,7 +71,7 @@ video {
   z-index: 0;
 }
 
-/* Menü-Kreis */
+/* Kreis-Menü */
 .circle-menu {
   position: absolute;
   top: 42%;
