@@ -23,6 +23,11 @@
   box-sizing: border-box;
 }
 
+/* Vererbung sicherstellen für alle Kinder im Overlay */
+.overlay-panel * {
+  font-family: "shantell-sans-normal", sans-serif !important;
+}
+
 /* Erste Ebene Bulletpoints */
 .overlay-panel ul {
   list-style-type: disc;
